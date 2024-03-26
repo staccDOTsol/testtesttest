@@ -51,6 +51,7 @@ const sliderSettings = {
   speed: 500, // Animation speed in milliseconds
   slidesToShow: 1, // Show one slide at a time
   slidesToScroll: 1, // Scroll one slide at a time
+  default: 1.1,
   initialSlide: 0, // Start with the first slide
   step: 0.1, // The step with which the slider moves - Not a default react-slick prop
   beforeChange: (current: any, next: any) => setShares(Number(next+1) * 0.1) // Update the shares state; customize this as needed
