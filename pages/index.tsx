@@ -172,11 +172,7 @@ const sliderSettings = {
             </div>
           </>
         )}
-        {mintsOnSale.length == 0 || CLOSED ? (
-          <>
-            <img src='https://americansigncompany.com/wp-content/uploads/2020/07/Sorry-Were-Closed-We-Hope-to-Be-Back-Soon-Thank-You.jpg' />
-          </>
-        ) : (
+        {connected && (
           
           <div className={`${grids}`}>
              {mintsOnSale.map((saleItem, index) => (
