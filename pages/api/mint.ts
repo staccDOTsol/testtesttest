@@ -9,7 +9,6 @@ import {
   keypairIdentity,
   Metaplex,
 } from '@metaplex-foundation/js';
-import { StakePoolInstruction } from '@solana/spl-stake-pool';
 import {
   ComputeBudgetProgram,
   Connection,
@@ -19,6 +18,7 @@ import {
 } from '@solana/web3.js';
 
 import mintsOnSale from '../../data/onsale';
+import { StakePoolInstruction } from '../../js';
 import { FanoutClient } from '../../sdk';
 
 type Data = {
