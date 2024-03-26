@@ -1,7 +1,6 @@
 'use strict';
 
 var BN = require('bn.js');
-var fs = require('fs');
 var splToken = require('@solana/spl-token');
 var web3_js = require('@solana/web3.js');
 var buffer = require('buffer');
@@ -2178,20 +2177,6 @@ async function updatePoolTokenMetadata(connection, stakePoolAddress, name, symbo
         instructions,
     };
 }
-const connection = new web3_js.Connection("https://jarrett-solana-7ba9.mainnet.rpcpool.com/8d890735-edf2-4a75-af84-92f7c9e31718", "confirmed");
-const wallet = web3_js.Keypair
-    .fromSecretKey(new Uint8Array(JSON.parse(fs.readFileSync('/Users/jd/7i.json').toString())));
-async function main() {
-    console.log(1);
-    const ixs = (await createPoolTokenMetadata(connection, new web3_js.PublicKey("4y7oEUmChYAoRWbKJakqAWn2MGcmUv59rTorm6Q4WFJJ"), wallet.publicKey, "OFUCK", "FUCK", "https://gist.githubusercontent.com/staccDOTsol/5157431dcc84e593a7017504ce54170a/raw/22ffd7a0f5d53dd0cacc667ac963b7866acc893a/gistfile1.txt")).instructions;
-    const tx = new web3_js.Transaction().add(web3_js.ComputeBudgetProgram.setComputeUnitPrice({ microLamports: 32000 })).add(...ixs);
-    tx.feePayer = wallet.publicKey;
-    tx.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
-    let sig = await connection.sendTransaction(tx, [wallet]);
-    console.log(sig);
-    console.log(2);
-}
-main();
 
 exports.STAKE_POOL_INSTRUCTION_LAYOUTS = STAKE_POOL_INSTRUCTION_LAYOUTS;
 exports.STAKE_POOL_PROGRAM_ID = STAKE_POOL_PROGRAM_ID;
