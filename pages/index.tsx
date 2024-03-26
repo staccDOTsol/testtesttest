@@ -39,7 +39,7 @@ const Home: NextPage = () => {
   const [error, setError] = useState<boolean>(false)
   const [confetti, setConfetti] = useState<boolean>(false)
   const [errorMessage, setErrorMessage] = useState<string>('')
-const [shares, theSetShares] = useState<number>(1.1)
+const [shares, theSetShares] = useState<number>(0.1)
 // use preventDefault to prevent the page from reloading, function setShares
 // will be called when the slider is moved
 const setShares = (value: number) => {
@@ -51,7 +51,7 @@ const sliderSettings = {
   speed: 500, // Animation speed in milliseconds
   slidesToShow: 1, // Show one slide at a time
   slidesToScroll: 1, // Scroll one slide at a time
-  default: 1.1,
+  default: 0.1,
   initialSlide: 0, // Start with the first slide
   step: 0.1, // The step with which the slider moves - Not a default react-slick prop
   beforeChange: (current: any, next: any) => setShares(Number(next+1) * 0.1) // Update the shares state; customize this as needed
