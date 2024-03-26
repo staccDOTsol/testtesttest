@@ -183,7 +183,7 @@ const sliderSettings = {
                 <div className='' key={'mintsonsale-' + saleItem.mint}>
               <h3 className='text-3xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-br from-indigo-500 to-fuchsia-500'>
     this is what we do. You contribute as much as you want, 0.015 mints yo nft, the shares you choose are staked into a liquid staking token <br />
-    and then immediately staked on your behalf on a hydra fanout wallet.
+    and then immediately staked on your behalf on a hydra fanout wallet. You can unstake at any point, get ur LSTs back
   <h2>seriously. check this out<br/></h2>
   </h3><p style={{textAlign: 'center'}}>https://solscan.io/tx/4LKw3AvEVDPbD6q45LcRnBpBmaBatnHhXw38RGH7EaB5GJkMzmgBsk5i95eFqnLfcZqqAsYU3Q9e7jNuDFAs4FwM</p>
   <Slider {...sliderSettings} >
