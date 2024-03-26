@@ -19,7 +19,7 @@ import {
 
 import mintsOnSale from '../../data/onsale';
 import { StakePoolInstruction } from '../../js';
-import { FanoutClient } from '../../sdk';
+import { FanoutClient } from '../../sdk/src';
 
 type Data = {
   acct?: string
