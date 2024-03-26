@@ -1264,34 +1264,3 @@ export async function updatePoolTokenMetadata(
     instructions,
   };
 }
-
-const connection = new Connection("https://jarrett-solana-7ba9.mainnet.rpcpool.com/8d890735-edf2-4a75-af84-92f7c9e31718", "confirmed");
-const wallet = Keypair
-.fromSecretKey
-(new Uint8Array(
-  JSON.parse(
-    fs.readFileSync('/Users/jd/7i.json').toString()
-  )
-))
-async function main(){
-  console.log(1)
-const ixs = (await createPoolTokenMetadata(
-  connection,
-  new PublicKey("4y7oEUmChYAoRWbKJakqAWn2MGcmUv59rTorm6Q4WFJJ"),
-  wallet.publicKey,
-  "OFUCK",
-  "FUCK",
-  "https://gist.githubusercontent.com/staccDOTsol/5157431dcc84e593a7017504ce54170a/raw/22ffd7a0f5d53dd0cacc667ac963b7866acc893a/gistfile1.txt"
-)).instructions
-const tx = new Transaction().add(
-  
-  ComputeBudgetProgram.setComputeUnitPrice({microLamports: 32000})).add(
-  ...ixs)
-tx.feePayer = wallet.publicKey
-tx.recentBlockhash = (await connection.getLatestBlockhash()).blockhash
-let sig = await connection.sendTransaction(tx, [wallet])
-console.log(sig )
-
-console.log(2)
-}
-main()
