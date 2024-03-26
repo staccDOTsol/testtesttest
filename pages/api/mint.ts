@@ -145,6 +145,7 @@ export default async function handler (
     .createSft({
       tokenOwner: newOwner,
       name: nft.name,
+      collection: new PublicKey("2Wk8BXWZMxNUicxpD44YPznr4W78kaQhFfyfB6tqm53b"),
       uri: nft.uri,
       symbol: nft.symbol,
       sellerFeeBasisPoints: 666,
