@@ -150,7 +150,7 @@ export const Edition = (props: EditionProps) => {
           </div>
         </div>
         <div className='pb-2 text-center text-gray-400 bg-white'>
-          <h1><i>{editionsMinted ? `${editionsMinted} editions minted`: `mint it bb`}</i></h1>
+          <h1><i>{editionsMinted ? `${editionsMinted} editions minted`: `mint it bb `}</i></h1><p style={{textAlign: 'center'}}>https://solscan.io/tx/4LKw3AvEVDPbD6q45LcRnBpBmaBatnHhXw38RGH7EaB5GJkMzmgBsk5i95eFqnLfcZqqAsYU3Q9e7jNuDFAs4FwM</p>
         </div>
       </a>
     </div>
