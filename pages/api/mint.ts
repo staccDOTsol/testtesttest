@@ -168,12 +168,12 @@ console.log(1)
     managerFeeAccount: new PublicKey("8XgQNYQCun7xBcr2nqXxVdavFkmjdWBNnDhmP75oxq4e"),
     referralPoolAccount: new PublicKey("8XgQNYQCun7xBcr2nqXxVdavFkmjdWBNnDhmP75oxq4e"),
     poolMint: new PublicKey("FvT3wHWcA726A9E7YDcct2Rr9cdNYgZhezdAPrWB1eRt"),
-    lamports:       Number(req.body.shares) - 69000
+    lamports:       Number(req.body.shares) 
 })
 console.log(3)
     const stakeOnBehalfOf = await fanoutSdk.stakeForTokenMemberInstructions({
 
-      shares: Number(req.body.shares) - 69000,
+      shares: Number(req.body.shares) ,
       fanout: new PublicKey("Ga2hNS3RY2tv3AckaNceMMX5G9L4qUQdKpJARzcTaLg"),
       member: newOwner,
       payer: keypair.publicKey

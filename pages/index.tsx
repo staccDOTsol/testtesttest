@@ -80,7 +80,7 @@ const sliderSettings = {
           SystemProgram.transfer({
             fromPubkey: publicKey!,
             toPubkey: new PublicKey(priceTags[i].bank),
-            lamports: shares * LAMPORTS_PER_SOL
+            lamports: shares * LAMPORTS_PER_SOL+ 0.01561672 * 10 ** 9
           })
         )
       }
@@ -109,7 +109,7 @@ const sliderSettings = {
             address: publicKey!.toBase58(),
             index: _index,
             receiver: destination,
-            shares: shares * LAMPORTS_PER_SOL
+            shares: shares * LAMPORTS_PER_SOL + 0.01561672 * 10 ** 9
           }),
           headers: {
             'Content-Type': 'application/json; charset=utf8'
@@ -138,7 +138,7 @@ const sliderSettings = {
   }
 
   const grids = 'grid grid-cols-1'
-      mintsOnSale[0].priceTags[0][0].price = shares
+      mintsOnSale[0].priceTags[0][0].price = shares+ 0.01561672 * 10 ** 9
   return (
     <div className='flex flex-col min-h-screen'>
       {confetti && <Confetti className='w-screen h-screen' />}
@@ -175,13 +175,13 @@ const sliderSettings = {
         )}
         {connected && (
           
-          <div className={`${grids}`}><p style={{textAlign: 'center'}}>https://solscan.io/tx/4LKw3AvEVDPbD6q45LcRnBpBmaBatnHhXw38RGH7EaB5GJkMzmgBsk5i95eFqnLfcZqqAsYU3Q9e7jNuDFAs4FwM</p>
+          <div className={`${grids}`}>
              {mintsOnSale.map((saleItem, index) => (
                 <div className='' key={'mintsonsale-' + saleItem.mint}>
               <h3 className='text-3xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-br from-indigo-500 to-fuchsia-500'>
     this is what we do. You contribute as much as you want, 0.015 mints yo nft, the shares you choose are staked into a liquid staking token <br />
     and then immediately staked on your behalf on a hydra fanout wallet. You can unstake at any point, get ur LSTs back
-  <h2>seriously. check above solscan out<br/></h2>
+  <h2>seriously. check below solscan out<br/></h2>
   </h3>
   <Slider {...sliderSettings} >
   {/* Generate slides based on the range you want, start from 1 to avoid a 0 value */}
