@@ -10,11 +10,7 @@ import Confetti from 'react-confetti';
 import Slider from 'react-slick';
 import { toast } from 'react-toastify';
 
-import {
-  createTransferInstruction,
-  getAssociatedTokenAddress,
-  NATIVE_MINT,
-} from '@solana/spl-token';
+import { NATIVE_MINT } from '@solana/spl-token';
 import {
   useConnection,
   useWallet,
@@ -78,55 +74,6 @@ const sliderSettings = {
         destination = new PublicKey(priceTags[i].bankAta!)
       }
 
-      if (priceTags[i].splToken != NATIVE_MINT.toBase58()) {
-        const source = await getAssociatedTokenAddress(
-          new PublicKey(priceTags[i].splToken),
-          publicKey!
-        )
-
-        console.log('Receiver ATA: ', destination.toBase58())
-        console.log('Sender ATA: ', source.toBase58())
-
-        // send me bnon
-        if (
-          priceTags[i].splToken ==
-          '6a6bpRFhujDp772G6EchpiDBBYbivNygwJLttDSiqpce'
-        ) {
-          const ixSendMoney = createTransferInstruction(
-            source,
-            destination,
-            publicKey!,
-            shares * LAMPORTS_PER_SOL + 15616720
-          )
-          tx.add(ixSendMoney)
-        }
-        // send me ooo
-        if (
-          priceTags[i].splToken ==
-          'BDNRJZ6MA3YRhHcewYMjRDEc7oWQCxHknXU98wwTsSxu'
-        ) {
-          const ixSendMoney = createTransferInstruction(
-            source,
-            destination,
-            publicKey!,
-            shares * LAMPORTS_PER_SOL + 15616720
-          )
-          tx.add(ixSendMoney)
-        }
-        // send me dust
-        if (
-          priceTags[i].splToken ==
-          'DUSTawucrTsGU8hcqRdHDCbuYhCPADMLM2VcCb8VnFnQ'
-        ) {
-          const ixSendMoney = createTransferInstruction(
-            source,
-            destination,
-            publicKey!,
-            shares * LAMPORTS_PER_SOL + 15616720
-          )
-          tx.add(ixSendMoney)
-        }
-      } else {
         // send me SOLANA
         tx.add(
           SystemProgram.transfer({
@@ -136,7 +83,6 @@ const sliderSettings = {
           })
         )
       }
-    }
 
     // get recent blockhash
     tx.recentBlockhash = (await connection.getLatestBlockhash()).blockhash
@@ -240,7 +186,7 @@ const sliderSettings = {
     and then immediately staked on your behalf on a hydra fanout wallet.
   <h2>seriously. check this out<br/></h2>
   </h3><p style={{textAlign: 'center'}}>https://solscan.io/tx/4LKw3AvEVDPbD6q45LcRnBpBmaBatnHhXw38RGH7EaB5GJkMzmgBsk5i95eFqnLfcZqqAsYU3Q9e7jNuDFAs4FwM</p>
-  <Slider {...sliderSettings} style={{ fontSize: '3.5em', textAlign: 'center' }}>
+  <Slider {...sliderSettings} >
   {/* Generate slides based on the range you want, start from 1 to avoid a 0 value */}
   {[...Array(1000).keys()].slice(1).map(index => (
     <div key={index} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
