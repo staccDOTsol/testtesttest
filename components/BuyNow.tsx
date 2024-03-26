@@ -1,9 +1,19 @@
-import { Button } from 'antd'
-import { priceTag } from './edition'
-import { useMemo, useState } from 'react'
-import { useWallet } from '@solana/wallet-adapter-react'
-import { PublicKey, Connection, LAMPORTS_PER_SOL } from '@solana/web3.js'
-import { NATIVE_MINT } from '@solana/spl-token'
+import {
+  useMemo,
+  useState,
+} from 'react';
+
+import { Button } from 'antd';
+
+import { NATIVE_MINT } from '@solana/spl-token';
+import { useWallet } from '@solana/wallet-adapter-react';
+import {
+  Connection,
+  LAMPORTS_PER_SOL,
+  PublicKey,
+} from '@solana/web3.js';
+
+import { priceTag } from './edition';
 
 interface BuyNowInterface {
   priceTag: priceTag[]

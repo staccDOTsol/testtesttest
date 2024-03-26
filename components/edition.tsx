@@ -1,12 +1,21 @@
-import Link from 'next/link'
-import { useMemo } from 'react'
-import { PublicKey } from '@solana/web3.js'
-import { Connection } from '@solana/web3.js'
-import { useState } from 'react'
-import Lightbox from 'react-image-lightbox'
-import BuyNow from './BuyNow'
-import { Metaplex, Nft } from '@metaplex-foundation/js'
-import { imgopt } from '../data/util'
+import {
+  useMemo,
+  useState,
+} from 'react';
+
+import Link from 'next/link';
+import Lightbox from 'react-image-lightbox';
+
+import {
+  Metaplex,
+  Nft,
+} from '@metaplex-foundation/js';
+import {
+  Connection,
+  PublicKey,
+} from '@solana/web3.js';
+
+import BuyNow from './BuyNow';
 
 // feature flags
 const LinkToCreator = false
@@ -47,7 +56,7 @@ export const Edition = (props: EditionProps) => {
     const nft = await metaplex
       .nfts()
       .findByMint({ mintAddress: new PublicKey(mint) })
-      .run()
+      
     if (nft.model != 'nft') return
     if (!nft.edition.isOriginal) return
     setNft(nft)
@@ -60,7 +69,7 @@ export const Edition = (props: EditionProps) => {
         <div className='relative w-full overflow-hidden bg-black group rounded-t-3xl'>
           {isOpen && (
             <Lightbox
-              mainSrc={imgopt(nft?.json?.image!, 1000)}
+              mainSrc={"https://i.imgur.com/AX9wl2x.gif"}
               onCloseRequest={() => setIsOpen(false)}
               imageTitle={
                 name + ' -----> Press the (+) button if the image doesnt load'
@@ -69,7 +78,7 @@ export const Edition = (props: EditionProps) => {
             />
           )}
           <img
-            src={imgopt(nft?.json?.image!, 600)}
+            src={"https://i.imgur.com/AX9wl2x.gif"}
             className='object-cover duration-700 transform backdrop-opacity-100'
             onClick={() => setIsOpen(true)}
           />
@@ -141,7 +150,7 @@ export const Edition = (props: EditionProps) => {
           </div>
         </div>
         <div className='pb-2 text-center text-gray-400 bg-white'>
-          <h1><i>{editionsMinted ? `${editionsMinted} editions minted`: `be the first to mint`}</i></h1>
+          <h1><i>{editionsMinted ? `${editionsMinted} editions minted`: `mint it bb`}</i></h1>
         </div>
       </a>
     </div>

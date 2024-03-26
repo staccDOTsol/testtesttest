@@ -1,20 +1,20 @@
-import { NATIVE_MINT } from '@solana/spl-token'
+import { NATIVE_MINT } from '@solana/spl-token';
 
 // const mintsOnSale = []
 const mintsOnSale = [
   {
     creator: "@staccoverflow",
     open: true,
-    mint: 'EHuxnJThFzyuyCuZ1UYRm1f8Ct7DJTmYSUHyw9u8HwWa',
+    mint: 'BQtRK9xFWR8vnK28mX2W5uxGmtBqabrHi7D6JmgVijt5',
     priceTags: [
       [
         {
-          splToken: "7UfnA6tNvxU317xsesFJhRCUpQJ8m63ooLGKSC9m5vjp",
-          bank: 'Gf3sbc5Jb62jH7WcTr3WSNGDQLk1w6wcKMZXKK1SC1E6',
-          bankAta: '437mKN7wtYVkH8cUgDR4Lyi4bfUyWnChvh62Nk6y8yix',
-          price: 3,
-          symbol: '$FREN'
-        }
+          splToken: NATIVE_MINT.toBase58(),
+          bank: '7ihN8QaTfNoDTRTQGULCzbUT3PHwPDTu5Brcu4iT2paP',
+          bankAta: '',
+          price: 0.000069,
+          symbol: 'SOL'
+        },
       ]
     ]
   }

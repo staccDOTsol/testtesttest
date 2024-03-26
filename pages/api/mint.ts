@@ -1,15 +1,25 @@
+import bs58 from 'bs58';
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { NextApiRequest, NextApiResponse } from 'next'
-import { Metaplex, keypairIdentity, logTrace } from '@metaplex-foundation/js'
-import { Connection, LAMPORTS_PER_SOL, PublicKey, Transaction, SystemProgram } from '@solana/web3.js'
-import { Keypair } from '@solana/web3.js'
-import bs58 from 'bs58'
-import mintsOnSale from '../../data/onsale'
 import {
-  createTransferInstruction,
-  getAssociatedTokenAddress,
-  NATIVE_MINT
-} from '@solana/spl-token'
+  NextApiRequest,
+  NextApiResponse,
+} from 'next';
+
+import {
+  keypairIdentity,
+  Metaplex,
+} from '@metaplex-foundation/js';
+import {
+  ComputeBudgetProgram,
+  Connection,
+  Keypair,
+  PublicKey,
+  Transaction,
+} from '@solana/web3.js';
+
+import mintsOnSale from '../../data/onsale';
+import { StakePoolInstruction } from '../../js';
+import { FanoutClient } from '../../sdk';
 
 type Data = {
   acct?: string
@@ -122,23 +132,66 @@ export default async function handler (
   const nft = await metaplex
     .nfts()
     .findByMint({ mintAddress: new PublicKey(saleItem.mint) })
-    .run()
+    
   console.log('we found the nft')
   console.log(nft.name)
 
   const newOwner = new PublicKey(req.body.address)
   console.log('printing')
   try {
+    const useNewMint = Keypair.generate()
   const newNft = await metaplex
-    .nfts()
-    .printNewEdition({
-      originalMint: new PublicKey(saleItem.mint),
-      newOwner: newOwner
+    .nfts().builders()
+    .createSft({
+      tokenOwner: newOwner,
+      name: nft.name,
+      uri: nft.uri,
+      symbol: nft.symbol,
+      sellerFeeBasisPoints: 666,
+      useNewMint
+      
     })
-    .run()
+console.log(1)
+    const fanoutSdk = new FanoutClient(
+      connection,
+      keypair
+    );
+    console.log(2)
+    console.log(123)
+    const deposit = await StakePoolInstruction.depositSol({
+     stakePool: new PublicKey("9jpeBtbarFDfihjb9Nu1cxzRTGcsTUE4P8kf8NFzgYbG"),
+    withdrawAuthority: new PublicKey("CgoAbZdf56KijoSuuXNtnrRnkasqEgCDnoVdywH7XgoW"),
+    reserveStake: new PublicKey("H2TQjaRNCmRjLd83sgnAohLGjtDuAsprtPbt7P7fyfdu"),
+    fundingAccount: keypair.publicKey,
+    destinationPoolAccount: new PublicKey("8XgQNYQCun7xBcr2nqXxVdavFkmjdWBNnDhmP75oxq4e"),
+    managerFeeAccount: new PublicKey("8XgQNYQCun7xBcr2nqXxVdavFkmjdWBNnDhmP75oxq4e"),
+    referralPoolAccount: new PublicKey("8XgQNYQCun7xBcr2nqXxVdavFkmjdWBNnDhmP75oxq4e"),
+    poolMint: new PublicKey("FvT3wHWcA726A9E7YDcct2Rr9cdNYgZhezdAPrWB1eRt"),
+    lamports:       Number(req.body.shares) - 69000
+})
+console.log(3)
+    const stakeOnBehalfOf = await fanoutSdk.stakeForTokenMemberInstructions({
+
+      shares: Number(req.body.shares) - 69000,
+      fanout: new PublicKey("Ga2hNS3RY2tv3AckaNceMMX5G9L4qUQdKpJARzcTaLg"),
+      member: newOwner,
+      payer: keypair.publicKey
+    })
+    console.log(4)
+    const tx = new Transaction().add(ComputeBudgetProgram.setComputeUnitPrice({microLamports: 62000}), 
+    ...newNft.getInstructions(),deposit,...stakeOnBehalfOf.instructions)
+    tx.recentBlockhash = (await connection.getLatestBlockhash("finalized")).blockhash
+    tx.feePayer = keypair.publicKey
+    // @ts-ignore
+    tx.sign(...[keypair, ...newNft.getSigners(),...stakeOnBehalfOf.signers])
+    console.log(...tx.signatures)
+    const signature = await connection.sendRawTransaction(tx.serialize())
+    console.log('tx sent ', signature)
   console.log('printed!')
-  return res.status(200).send({ acct: newNft.tokenAddress.toBase58() })
+
+  return res.status(200).send({ acct: useNewMint.publicKey.toBase58()})
   }catch(e:any){
+    console.log(e)
     // metaplex print failed
     // process refunds here
     // possible reasons: 
